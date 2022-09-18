@@ -29,7 +29,6 @@ namespace gmod_audio_converter
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.SourcePath = new System.Windows.Forms.TextBox();
             this.EncodeButt = new System.Windows.Forms.Button();
@@ -38,6 +37,8 @@ namespace gmod_audio_converter
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.QualityLbl = new System.Windows.Forms.Label();
             this.ffmpegCheck = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.comboBox2 = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // button1
@@ -53,11 +54,9 @@ namespace gmod_audio_converter
             // SourcePath
             // 
             this.SourcePath.BackColor = System.Drawing.SystemColors.ScrollBar;
-            this.SourcePath.Enabled = false;
             this.SourcePath.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F);
             this.SourcePath.Location = new System.Drawing.Point(138, 27);
             this.SourcePath.Name = "SourcePath";
-            this.SourcePath.ReadOnly = true;
             this.SourcePath.Size = new System.Drawing.Size(234, 20);
             this.SourcePath.TabIndex = 2;
             this.SourcePath.Text = "C:\\gmod\\sound\\weapons";
@@ -76,7 +75,7 @@ namespace gmod_audio_converter
             // 
             this.ErrorLbl.AutoSize = true;
             this.ErrorLbl.BackColor = System.Drawing.SystemColors.Menu;
-            this.ErrorLbl.Location = new System.Drawing.Point(12, 169);
+            this.ErrorLbl.Location = new System.Drawing.Point(12, 152);
             this.ErrorLbl.MaximumSize = new System.Drawing.Size(250, 40);
             this.ErrorLbl.Name = "ErrorLbl";
             this.ErrorLbl.Size = new System.Drawing.Size(0, 13);
@@ -103,7 +102,7 @@ namespace gmod_audio_converter
             // 
             this.QualityLbl.AutoSize = true;
             this.QualityLbl.BackColor = System.Drawing.Color.Transparent;
-            this.QualityLbl.Location = new System.Drawing.Point(192, 68);
+            this.QualityLbl.Location = new System.Drawing.Point(196, 68);
             this.QualityLbl.Name = "QualityLbl";
             this.QualityLbl.Size = new System.Drawing.Size(66, 13);
             this.QualityLbl.TabIndex = 11;
@@ -120,11 +119,34 @@ namespace gmod_audio_converter
             this.ffmpegCheck.Text = "ffmpeg";
             this.ffmpegCheck.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.Transparent;
+            this.label1.Location = new System.Drawing.Point(25, 68);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(42, 13);
+            this.label1.TabIndex = 13;
+            this.label1.Text = "Format:";
+            this.label1.Click += new System.EventHandler(this.label1_Click);
+            // 
+            // comboBox2
+            // 
+            this.comboBox2.AllowDrop = true;
+            this.comboBox2.FormattingEnabled = true;
+            this.comboBox2.Location = new System.Drawing.Point(73, 65);
+            this.comboBox2.Name = "comboBox2";
+            this.comboBox2.Size = new System.Drawing.Size(108, 21);
+            this.comboBox2.TabIndex = 12;
+            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 198);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.QualityLbl);
             this.Controls.Add(this.comboBox1);
             this.Controls.Add(this.ffmpegCheck);
@@ -134,7 +156,6 @@ namespace gmod_audio_converter
             this.Controls.Add(this.SourcePath);
             this.Controls.Add(this.button1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Gmod Audio Encoder";
             this.Load += new System.EventHandler(this.Form1_Load);
@@ -152,6 +173,8 @@ namespace gmod_audio_converter
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label QualityLbl;
         private System.Windows.Forms.CheckBox ffmpegCheck;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox comboBox2;
     }
 }
 
