@@ -14,10 +14,10 @@ namespace gmod_audio_converter
         {
             InitializeComponent();
             bool ffmpegExists = File.Exists(@"ffmpeg.exe");
-            Console.WriteLine();
+            if (!ffmpegExists) { MessageBox.Show("You are missing one or more dependencies. This application will not function without them.", "Error! Missing Dependencies", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+
             ffmpegCheck.Text = ffmpegExists ? "✔️ ffmpeg" : "❌ ffmpeg";
             
-            if (!ffmpegExists) { MessageBox.Show("You are missing one or more dependencies. This application will not function without them.", "Error! Missing Dependencies", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
 
             ToolTip btnToolTip = new ToolTip();
             btnToolTip.SetToolTip(btnfolderSelect, "Choose the folder where your audio files are stored.");
