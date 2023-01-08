@@ -1,4 +1,7 @@
 ﻿
+using System.ComponentModel;
+using System.Windows.Forms;
+
 namespace gmod_audio_converter
 {
     partial class Form1
@@ -6,7 +9,7 @@ namespace gmod_audio_converter
         /// <summary>
         /// Required designer variable.
         /// </summary>
-        private System.ComponentModel.IContainer components = null;
+        private IContainer components = null;
 
         /// <summary>
         /// Clean up any resources being used.
@@ -29,27 +32,27 @@ namespace gmod_audio_converter
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
+            this.btnfolderSelect = new System.Windows.Forms.Button();
             this.SourcePath = new System.Windows.Forms.TextBox();
             this.EncodeButt = new System.Windows.Forms.Button();
             this.ErrorLbl = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.QualityLbl = new System.Windows.Forms.Label();
-            this.ffmpegCheck = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.comboBox2 = new System.Windows.Forms.ComboBox();
+            this.ffmpegCheck = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // button1
+            // btnfolderSelect
             // 
-            this.button1.Location = new System.Drawing.Point(13, 23);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 28);
-            this.button1.TabIndex = 1;
-            this.button1.Text = "Select Folder";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.btnfolderSelect.Location = new System.Drawing.Point(13, 23);
+            this.btnfolderSelect.Name = "btnfolderSelect";
+            this.btnfolderSelect.Size = new System.Drawing.Size(120, 28);
+            this.btnfolderSelect.TabIndex = 1;
+            this.btnfolderSelect.Text = "Select Folder";
+            this.btnfolderSelect.UseVisualStyleBackColor = true;
+            this.btnfolderSelect.Click += new System.EventHandler(this.button1_Click);
             // 
             // SourcePath
             // 
@@ -96,7 +99,6 @@ namespace gmod_audio_converter
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(108, 21);
             this.comboBox1.TabIndex = 10;
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // QualityLbl
             // 
@@ -108,17 +110,6 @@ namespace gmod_audio_converter
             this.QualityLbl.TabIndex = 11;
             this.QualityLbl.Text = "Sample rate:";
             // 
-            // ffmpegCheck
-            // 
-            this.ffmpegCheck.AutoCheck = false;
-            this.ffmpegCheck.AutoSize = true;
-            this.ffmpegCheck.Location = new System.Drawing.Point(317, 169);
-            this.ffmpegCheck.Name = "ffmpegCheck";
-            this.ffmpegCheck.Size = new System.Drawing.Size(58, 17);
-            this.ffmpegCheck.TabIndex = 8;
-            this.ffmpegCheck.Text = "ffmpeg";
-            this.ffmpegCheck.UseVisualStyleBackColor = true;
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -128,7 +119,6 @@ namespace gmod_audio_converter
             this.label1.Size = new System.Drawing.Size(42, 13);
             this.label1.TabIndex = 13;
             this.label1.Text = "Format:";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // comboBox2
             // 
@@ -138,43 +128,51 @@ namespace gmod_audio_converter
             this.comboBox2.Name = "comboBox2";
             this.comboBox2.Size = new System.Drawing.Size(108, 21);
             this.comboBox2.TabIndex = 12;
-            this.comboBox2.SelectedIndexChanged += new System.EventHandler(this.comboBox2_SelectedIndexChanged);
+            // 
+            // ffmpegCheck
+            // 
+            this.ffmpegCheck.Location = new System.Drawing.Point(317, 180);
+            this.ffmpegCheck.Name = "ffmpegCheck";
+            this.ffmpegCheck.Size = new System.Drawing.Size(55, 19);
+            this.ffmpegCheck.TabIndex = 14;
+            this.ffmpegCheck.Text = "❌ ffmpeg";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 198);
+            this.Controls.Add(this.ffmpegCheck);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboBox2);
             this.Controls.Add(this.QualityLbl);
             this.Controls.Add(this.comboBox1);
-            this.Controls.Add(this.ffmpegCheck);
             this.Controls.Add(this.progressBar);
             this.Controls.Add(this.ErrorLbl);
             this.Controls.Add(this.EncodeButt);
             this.Controls.Add(this.SourcePath);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.btnfolderSelect);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Gmod Audio Encoder";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
+        private System.Windows.Forms.Label ffmpegCheck;
+
+        private System.Windows.Forms.Button btnfolderSelect;
+
         #endregion
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.TextBox SourcePath;
-        private System.Windows.Forms.Button EncodeButt;
-        private System.Windows.Forms.Label ErrorLbl;
-        private System.Windows.Forms.ProgressBar progressBar;
-        private System.Windows.Forms.ComboBox comboBox1;
-        private System.Windows.Forms.Label QualityLbl;
-        private System.Windows.Forms.CheckBox ffmpegCheck;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox comboBox2;
+
+        private TextBox SourcePath;
+        private Button EncodeButt;
+        private Label ErrorLbl;
+        private ProgressBar progressBar;
+        private ComboBox comboBox1;
+        private Label QualityLbl;
+        private Label label1;
+        private ComboBox comboBox2;
     }
 }
 
