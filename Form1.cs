@@ -15,83 +15,91 @@ namespace gmod_audio_converter
             InitializeComponent();
             bool ffmpegExists = File.Exists(@"ffmpeg.exe");
             if (!ffmpegExists) { MessageBox.Show("You are missing one or more dependencies. This application will not function without them.", "Error! Missing Dependencies", MessageBoxButtons.OK, MessageBoxIcon.Exclamation); }
+            ffmpegCheck.Checked = ffmpegExists;
 
-            ffmpegCheck.Text = ffmpegExists ? "✔️ ffmpeg" : "❌ ffmpeg";
-            
+            System.Windows.Forms.ToolTip btnToolTip = new System.Windows.Forms.ToolTip();
+            btnToolTip.SetToolTip(this.SelectFolderButt, "Choose the folder where your audio files are stored.");
 
-            ToolTip btnToolTip = new ToolTip();
-            btnToolTip.SetToolTip(btnfolderSelect, "Choose the folder where your audio files are stored.");
-
-            List<string> sampleRate = new(){ "44100", "22050", "11025" };
-            comboBox1.DataSource = sampleRate;
-            List<string> format = new(){ ".wav", ".mp3" };
-            comboBox2.DataSource = format;
+            List<string> sample_rate = new List<string>() { "44100", "22050", "11025" };
+            SampleSelect.DataSource = sample_rate;
+            List<string> format = new List<string>() { ".wav", ".mp3" };
+            FormalSelect.DataSource = format;
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void SelectFolderButt_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog source = new FolderBrowserDialog();
-            if (DialogResult.OK != source.ShowDialog()) return;
-
-            SourcePath.Text = source.SelectedPath;
-            SourcePath.Enabled = true;
-            SourcePath.BackColor = Color.White;
+            if (DialogResult.OK == source.ShowDialog())
+            {
+                string path = source.SelectedPath;
+                System.Console.WriteLine(path);
+                SourcePath.Text = path;
+                SourcePath.Enabled = true;
+                SourcePath.BackColor = Color.White;
+            }
         }
 
         private void EncodeButt_Click(object sender, EventArgs e)
         {
-            if (!SourcePath.Enabled)
-                ErrorLbl.Text = "You did not select a source folder!";
-            
-            progressBar.Maximum = 100;
-            progressBar.Value = 0;
-
-            var count = Directory.GetFiles(SourcePath.Text, "*.*").Length;
-            var iteration = 0;
-
-            Directory.CreateDirectory(Path.Combine(SourcePath.Text, @"\encode\"));
-            var outPath = SourcePath.Text + "\\encode\\";
-            var sourcePath = SourcePath.Text;
-            var codec = Equals(comboBox2.SelectedItem, ".wav") ? "pcm_s16le" : "libmp3lame";
-            if (!Directory.Exists(SourcePath.Text)) return;
-            
-            foreach (var file in Directory.GetFiles(SourcePath.Text, "*.*"))
+            if ((SourcePath.Enabled))
             {
-                Process process = new Process(); // Encode
-                process.StartInfo.FileName = "ffmpeg";
-                process.StartInfo.Arguments = "-y -i \u0022" + file + "\u0022 -c:a " + codec + " -ar " +
-                                              comboBox1.SelectedItem + " \u0022" + outPath +
-                                              Path.GetFileNameWithoutExtension(file) + comboBox2.SelectedItem +
-                                              "\u0022";
-                process.StartInfo.UseShellExecute = false;
-                process.StartInfo.CreateNoWindow = true;
-                process.Start();
-                
-                iteration++;
-                progressBar.Value += 100 / count;
-                ErrorLbl.Text = "(" + iteration + @" / " + count + ") Encoding " + Path.GetFileNameWithoutExtension(file);
-                process.WaitForExit();
-                
-                File.Delete(file);
-                Console.WriteLine(process.StartInfo.Arguments);
-                
-                if (iteration < count) continue;
-                ErrorLbl.Text = "Encoding complete. Converted " + iteration + " files to " +
-                                comboBox2.SelectedItem + " at " + comboBox1.SelectedItem + " Hz";
+                progressBar.Maximum = 100;
+                progressBar.Value = 0;
 
-                if (!Directory.Exists(outPath)) return;
+                int count = Directory.GetFiles(SourcePath.Text, "*.*").Length;
+                int iteration = 0;
+                string codec;
 
-                MoveDirectory(outPath, sourcePath);
+                Directory.CreateDirectory(SourcePath.Text + "\\encode\\");
+                var out_path = SourcePath.Text + "\\encode\\";
+                var source_path = SourcePath.Text;
+                if (Equals(FormalSelect.SelectedItem, ".wav")) {codec = "pcm_s16le";} else {codec = "libmp3lame";}
+            
+                if (Directory.Exists(SourcePath.Text))
+                {
+                    foreach (var file in Directory.GetFiles(SourcePath.Text, "*.*"))
+                    {
+                        Process process = new Process();
+                        process.StartInfo.FileName = "ffmpeg";
+                        process.StartInfo.Arguments = "-y -i \u0022" + file + "\u0022 -c:a " + codec + " -ar " + SampleSelect.SelectedItem + " \u0022" + out_path + Path.GetFileNameWithoutExtension(file) + FormalSelect.SelectedItem + "\u0022";
+                        process.StartInfo.UseShellExecute = false;
+                        process.StartInfo.CreateNoWindow = true;
+                        process.Start();
+                        iteration++;
+                        progressBar.Value += 100 / count;
+                        ErrorLbl.Text = "(" + iteration + " / " + count + ") Encoding " + Path.GetFileNameWithoutExtension(file);
+                        process.WaitForExit();
+                        File.Delete(file);
+                        System.Console.WriteLine(process.StartInfo.Arguments);
+                        if (iteration >= count)
+                        {
+                            ErrorLbl.Text = "Encoding complete. Converted " + iteration + " files to "+ FormalSelect.SelectedItem + " at " + SampleSelect.SelectedItem + " Hz";
+                            progressBar.Value = 0;
+
+                            if (Directory.Exists(out_path))
+                            {
+                                MoveDirectory(out_path, source_path);
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (!SourcePath.Enabled)
+                {
+                    ErrorLbl.Text = "You did not select a source folder!";
+                }
+
             }
         }
 
-        private static void MoveDirectory(string source, string target)
+        public static void MoveDirectory(string source, string target)
         {
             var sourcePath = source.TrimEnd('\\', ' ');
             var targetPath = target.TrimEnd('\\', ' ');
-            var files = Directory.EnumerateFiles(sourcePath, "*", SearchOption.AllDirectories)
-                                 .GroupBy(s => Path.GetDirectoryName(s));
-            
+            var files = Directory.EnumerateFiles(sourcePath, "*", SearchOption.AllDirectories).GroupBy(s => Path.GetDirectoryName(s));
+
             foreach (var folder in files)
             {
                 var targetFolder = folder.Key.Replace(sourcePath, targetPath);
