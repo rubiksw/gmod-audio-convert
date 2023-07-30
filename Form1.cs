@@ -53,8 +53,8 @@ namespace gmod_audio_converter
                 Directory.CreateDirectory(SourcePath.Text + "\\encode\\");
                 var out_path = SourcePath.Text + "\\encode\\";
                 var source_path = SourcePath.Text;
-                if (Equals(FormalSelect.SelectedItem, ".wav")) {codec = "pcm_s16le";} else {codec = "libmp3lame";}
-            
+                if (Equals(FormalSelect.SelectedItem, ".wav")) { codec = "pcm_s16le"; } else { codec = "libmp3lame"; }
+
                 if (Directory.Exists(SourcePath.Text))
                 {
                     foreach (var file in Directory.GetFiles(SourcePath.Text, "*.*"))
@@ -73,7 +73,7 @@ namespace gmod_audio_converter
                         System.Console.WriteLine(process.StartInfo.Arguments);
                         if (iteration >= count)
                         {
-                            ErrorLbl.Text = "Encoding complete. Converted " + iteration + " files to "+ FormalSelect.SelectedItem + " at " + SampleSelect.SelectedItem + " Hz";
+                            ErrorLbl.Text = "Encoding complete. Converted " + iteration + " files to " + FormalSelect.SelectedItem + " at " + SampleSelect.SelectedItem + " Hz";
                             progressBar.Value = 0;
 
                             if (Directory.Exists(out_path))
