@@ -39,6 +39,7 @@ namespace gmod_audio_converter
             this.ffmpegCheck = new System.Windows.Forms.CheckBox();
             this.FormatLbl = new System.Windows.Forms.Label();
             this.FormalSelect = new System.Windows.Forms.ComboBox();
+            this.shouldDelete = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // SelectFolderButt
@@ -137,11 +138,24 @@ namespace gmod_audio_converter
             this.FormalSelect.Size = new System.Drawing.Size(108, 21);
             this.FormalSelect.TabIndex = 12;
             // 
+            // shouldDelete
+            // 
+            this.shouldDelete.AutoCheck = false;
+            this.shouldDelete.AutoSize = true;
+            this.shouldDelete.Location = new System.Drawing.Point(15, 169);
+            this.shouldDelete.Name = "shouldDelete";
+            this.shouldDelete.Size = new System.Drawing.Size(120, 17);
+            this.shouldDelete.TabIndex = 14;
+            this.shouldDelete.Text = "Delete after convert";
+            this.shouldDelete.UseVisualStyleBackColor = true;
+            // 
             // Form1
             // 
+            this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(384, 198);
+            this.Controls.Add(this.shouldDelete);
             this.Controls.Add(this.FormatLbl);
             this.Controls.Add(this.FormalSelect);
             this.Controls.Add(this.QualityLbl);
@@ -155,6 +169,8 @@ namespace gmod_audio_converter
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Gmod Audio Encoder";
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.Form1_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.Form1_DragEnter);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -171,6 +187,7 @@ namespace gmod_audio_converter
         private System.Windows.Forms.CheckBox ffmpegCheck;
         private System.Windows.Forms.Label FormatLbl;
         private System.Windows.Forms.ComboBox FormalSelect;
+        private System.Windows.Forms.CheckBox shouldDelete;
     }
 }
 
