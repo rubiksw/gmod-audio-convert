@@ -5,6 +5,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using gac.Properties;
 
 namespace gmod_audio_converter
 {
@@ -20,11 +21,13 @@ namespace gmod_audio_converter
 
             System.Windows.Forms.ToolTip btnToolTip = new System.Windows.Forms.ToolTip();
             btnToolTip.SetToolTip(this.SelectFolderButt, "Choose the folder where your audio files are stored.");
+            btnToolTip.SetToolTip(this.shouldDelete, "Source files will be deleted after conversion if this is checked.");
 
             List<string> sample_rate = new List<string>() { "44100", "22050", "11025" };
             SampleSelect.DataSource = sample_rate;
             List<string> format = new List<string>() { ".wav", ".mp3" };
             FormalSelect.DataSource = format;
+            this.shouldDelete.Checked = Settings.Default.CleanupSource;
         }
 
         private void SelectFolderButt_Click(object sender, EventArgs e)
@@ -174,6 +177,12 @@ namespace gmod_audio_converter
         private void Form1_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.Copy;
+        }
+
+        private void shouldDelete_CheckedChanged(object sender, EventArgs e)
+        {
+            Settings.Default.CleanupSource = this.shouldDelete.Checked;
+            Settings.Default.Save();
         }
     }
 }

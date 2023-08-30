@@ -1,4 +1,6 @@
 ﻿
+using gac.Properties;
+
 namespace gmod_audio_converter
 {
     partial class Form1
@@ -76,8 +78,8 @@ namespace gmod_audio_converter
             // 
             this.ErrorLbl.AutoSize = true;
             this.ErrorLbl.BackColor = System.Drawing.SystemColors.Menu;
-            this.ErrorLbl.Location = new System.Drawing.Point(12, 152);
-            this.ErrorLbl.MaximumSize = new System.Drawing.Size(250, 40);
+            this.ErrorLbl.Location = new System.Drawing.Point(10, 147);
+            this.ErrorLbl.MaximumSize = new System.Drawing.Size(380, 40);
             this.ErrorLbl.Name = "ErrorLbl";
             this.ErrorLbl.Size = new System.Drawing.Size(0, 13);
             this.ErrorLbl.TabIndex = 6;
@@ -112,7 +114,7 @@ namespace gmod_audio_converter
             // 
             this.ffmpegCheck.AutoCheck = false;
             this.ffmpegCheck.AutoSize = true;
-            this.ffmpegCheck.Location = new System.Drawing.Point(314, 169);
+            this.ffmpegCheck.Location = new System.Drawing.Point(314, 181);
             this.ffmpegCheck.Name = "ffmpegCheck";
             this.ffmpegCheck.Size = new System.Drawing.Size(58, 17);
             this.ffmpegCheck.TabIndex = 8;
@@ -140,14 +142,13 @@ namespace gmod_audio_converter
             // 
             // shouldDelete
             // 
-            this.shouldDelete.AutoCheck = false;
             this.shouldDelete.AutoSize = true;
-            this.shouldDelete.Location = new System.Drawing.Point(15, 169);
+            this.shouldDelete.Location = new System.Drawing.Point(12, 181);
             this.shouldDelete.Name = "shouldDelete";
-            this.shouldDelete.Size = new System.Drawing.Size(120, 17);
+            this.shouldDelete.Size = new System.Drawing.Size(113, 17);
             this.shouldDelete.TabIndex = 14;
-            this.shouldDelete.Text = "Delete after convert";
-            this.shouldDelete.UseVisualStyleBackColor = true;
+            this.shouldDelete.Text = "Delete source files";
+            this.shouldDelete.CheckedChanged += new System.EventHandler(this.shouldDelete_CheckedChanged);
             // 
             // Form1
             // 
